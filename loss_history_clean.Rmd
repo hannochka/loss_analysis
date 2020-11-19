@@ -1,0 +1,18 @@
+---
+title: "Clean Loss History"
+output: html_document
+---
+
+```{r}
+Loss_History <- read_excel("C:/Users/hkosinovsky/Downloads/Loss History 093020.xlsx", sheet = "Loss History 093020")
+head(Loss_History)
+```
+
+```{r}
+#arrange by property id and sort by losspulldate
+
+library(dplyr)
+Loss_History %>% 
+  group_by(ID) %>%
+  slice(which.max(as.Date(date, '%m/%d/%Y')))
+```
